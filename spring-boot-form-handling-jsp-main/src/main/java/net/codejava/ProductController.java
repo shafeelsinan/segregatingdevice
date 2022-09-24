@@ -63,7 +63,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/saveproduct")
-	public String submitProductForm(@ModelAttribute("product") Product product,BindingResult bindingResult,HttpSession session) {
+	public String submitProductForm(@ModelAttribute("product") Product product,BindingResult bindingResult,HttpSession session,Model m) {
 		System.out.println(product);
 		session.getAttribute("USER_DETAILS");
 		if(BeanUtils.isNullOrEmpty(product.getName()))
@@ -84,6 +84,10 @@ public class ProductController {
 		ProductMain productmain = new ProductMain();
 		productmain = mapper.map(product, ProductMain.class);
 		prodrepository.save(productmain);
+		
+		List<ProductMain> productList = prodrepository.findAll();
+		m.addAttribute("msg", productList);
+		
 		return "productlist";
 			
 	}

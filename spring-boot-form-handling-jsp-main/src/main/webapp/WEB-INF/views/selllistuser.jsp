@@ -62,7 +62,7 @@
 					<th>
 						<div class="w3-padding w3-xlarge">
 						    <i class="w3-spin fa fa-refresh"></i>
-						    <i class="fa fa-close" style="color:red;"></i>
+						    <a href="viewallrejectedsellrequser" ><i class="fa fa-close" style="color:red;"></i></a>
 						 </div>
 					</th>
 				</c:if>

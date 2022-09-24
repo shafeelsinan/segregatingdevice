@@ -29,12 +29,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 	<div class="w3-padding w3-xlarge w3-teal">
     ${headersecval}
-    <a href="/adminhomepage"><i class="fa fa-home" style="padding-left: 75%"></i></a>
+    <c:if test="${type eq 'USER'}">
+    	<a href="/sellproduct/0"><i class="material-icons" style="padding-left: 75%">&#xe05e;</i></a>
+    </c:if>
+    <a href="/adminhomepage"><i class="fa fa-home" style="${type ne 'USER'?'padding-left: 75%':'padding-left: 0%'}"></i></a>
     <a href="/register"><i class="fa fa-sign-out" style="color:red;padding-left: 0%" ></i></a>
+    
   	</div>
 	<table id="customers" border="2" width="70%" cellpadding="2">
 		<tr>

@@ -214,7 +214,7 @@ label {
                             
                             <div class="col-lg-12 loginbttm">
                                 <div class="col-lg-6 login-btm login-text">
-                                    <a href="/viewsellrequser">Product List</a>
+                                    <a href="/viewsellrequser">Sell List</a>
                                 </div>
                                 <div class="col-lg-6 login-btm login-button">
                                     <button type="submit" class="btn btn-outline-primary">Save</button>

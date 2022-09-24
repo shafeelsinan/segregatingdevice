@@ -31,9 +31,9 @@
             <ul>
             	<li><div class="linksd" id="productlink"><a href="saveproduct/0" style="color:white;">Product</a></div></li>
                 <li><div class="linksd" id="productlist"><a href="viewproduct" style="color:white;">Product List</a></div></li>
-                
                 <li><div class="linksd" id="userlist"><a href="viewalluser" style="color:white;">User List</a></div></li>
             	<li><div class="linksd" id="selllistid"><a href="viewallsavedsellrequser" style="color:white;">Sell List</a></div></li>
+                <li><div class="linksd" id="collectlist"><a href="viewallcollectedsellrequser" style="color:white;">Collected List</a></div></li>
                 <li><div class="linksd" id="recyclelist"><a href="viewallrecycledsellrequser" style="color:white;">Recycle List</a></div></li>
                 <li><div class="linksd" id="rejectlist"><a href="viewallrejectedsellrequser" style="color:white;">Reject List</a></div></li>
             </ul>

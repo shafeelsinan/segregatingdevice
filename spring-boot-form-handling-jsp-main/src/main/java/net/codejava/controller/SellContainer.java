@@ -27,7 +27,9 @@ import net.codejava.domain.ProductMain;
 import net.codejava.domain.Sell;
 import net.codejava.repository.ProductRepository;
 import net.codejava.repository.SellRepository;
+import net.codejava.service.CurrentstockService;
 import net.codejava.vo.SellVo;
+import net.codejava.vo.StockInsertVo;
 
 @Controller
 public class SellContainer {
@@ -47,14 +49,22 @@ public class SellContainer {
 	@Autowired
 	private SellRepository sellrepository;
 	
+	@Autowired
+	private CurrentstockService service;
+	
 	private ModelMapper mapper;
 
-	public SellContainer(SellValidator validator, ProductRepository prodrepository, ModelMapper mapper) {
+	
+	
+	public SellContainer(SellValidator validator, ProductRepository prodrepository, SellRepository sellrepository,
+			CurrentstockService service, ModelMapper mapper) {
 		this.validator = validator;
 		this.prodrepository = prodrepository;
+		this.sellrepository = sellrepository;
+		this.service = service;
 		this.mapper = mapper;
 	}
-	
+
 	@GetMapping("/sellproduct/{prodid}")
 	public String showProductForm(@PathVariable Long prodid,Model m){ 
 		List<ProductMain> prodList = prodrepository.findAll();
@@ -127,6 +137,7 @@ public class SellContainer {
 			List<Sell> productList = sellrepository.findByUserid(hisuser.getId());
 			model.addAttribute("msg", productList);  
 			model.addAttribute("type", "USER");
+			model.addAttribute("headersecval", hisuser.getUsername()+"'s SELL LIST");
 			return "selllistuser";
 		}
 	}
@@ -136,6 +147,7 @@ public class SellContainer {
 			List<Sell> productList = sellrepository.findByStatus("SAVED");
 			model.addAttribute("msg", productList);  
 			model.addAttribute("type", "ALLSAVED");
+			model.addAttribute("headersecval", "SELL LIST");
 			return "selllistuser";
 		}
 	
@@ -144,6 +156,7 @@ public class SellContainer {
 			List<Sell> productList = sellrepository.findByStatus("RECYCLED");
 			model.addAttribute("msg", productList);  
 			model.addAttribute("type", "ALLRECYCLED");
+			model.addAttribute("headersecval", "RECYCLED LIST");
 			return "selllistuser";
 		}
 	
@@ -152,10 +165,136 @@ public class SellContainer {
 			List<Sell> productList = sellrepository.findByStatus("REJECTED");
 			model.addAttribute("msg", productList);  
 			model.addAttribute("type", "ALLREJECTED");
+			model.addAttribute("headersecval", "REJECTED LIST");
 			return "selllistuser";
 		}
 	
+	@GetMapping("/viewallcollectedsellrequser")
+	public String showAllcollectedSellReq(Model model,HttpSession session) {
+			List<Sell> productList = sellrepository.findByStatus("COLLECTED");
+			model.addAttribute("msg", productList);  
+			model.addAttribute("type", "ALLCOLLECTED");
+			model.addAttribute("headersecval", "COLLECTED LIST");
+			return "selllistuser";
+		}
 	
+	public Model getmodaldata(Model model,String header,String type,String status)
+	{
+		if(type.equalsIgnoreCase("ALLSAVED"))
+		{
+			header="SELL LIST";
+			status="SAVED";
+		}
+		else if(type.equalsIgnoreCase("ALLRECYCLED"))
+		{
+			header="RECYCLED LIST";
+			status="RECYCLED";
+		}
+		else if(type.equalsIgnoreCase("ALLREJECTED"))
+		{
+			header="REJECTED LIST";
+			status="REJECTED";
+		}
+		else if(type.equalsIgnoreCase("ALLCOLLECTED"))
+		{
+			header="COLLECTED LIST";
+			status="COLLECTED";
+		}
+		List<Sell> productList = sellrepository.findByStatus(status);
+		model.addAttribute("msg", productList); 
+		model.addAttribute("type", type);
+		model.addAttribute("headersecval", header);
+		return model;
+	}
+	
+	@GetMapping("/updateselltocollected/{sellid}/{type}")
+	public String updatedtoCollected(@PathVariable Long sellid, @PathVariable String type,
+			Model model, HttpSession session) {
+
+		if (!BeanUtils.isNullOrZero(sellid)) {
+			Sell sell = sellrepository.findById(sellid).get();
+			sell.setStatus("COLLECTED");
+			sell.setAdminRemarks("COLLECTED BY DELEVER BOY");
+			Date date = new Date();  
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+			String strDate= formatter.format(date); 
+			sell.setCollectedtime(strDate);
+			sellrepository.save(sell);
+
+		}
+		String header="";
+		String status="";
+		
+		getmodaldata(model, header, type, status);
+		
+		return "selllistuser";
+	}
+	
+	@GetMapping("/updateselltorejected/{sellid}/{type}")
+	public String updatedtoRejected(@PathVariable Long sellid, @PathVariable String type,
+			Model model, HttpSession session) {
+
+		if (!BeanUtils.isNullOrZero(sellid)) {
+			Sell sell = sellrepository.findById(sellid).get();
+			sell.setStatus("REJECTED");
+			sell.setAdminRemarks("ITEM REJECTED");
+			Date date = new Date();  
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+			String strDate= formatter.format(date); 
+			sell.setRejectedtime(strDate);
+			sellrepository.save(sell);
+
+		}
+		String header="";
+		String status="";
+		
+		getmodaldata(model, header, type, status);
+		
+		
+		return "selllistuser";
+	}
+	
+	@GetMapping("/updateselltorecycled/{sellid}/{type}")
+	public String updatedtoREcycled(@PathVariable Long sellid, @PathVariable String type,
+			Model model, HttpSession session) {
+
+		if (!BeanUtils.isNullOrZero(sellid)) {
+			Sell sell = sellrepository.findById(sellid).get();
+			sell.setStatus("RECYCLED");
+			sell.setAdminRemarks("ITEM ACCEPTED AND RECYCLED");
+			Date date = new Date();  
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+			String strDate= formatter.format(date); 
+			sell.setRecycletime(strDate);
+			sellrepository.save(sell);
+			service.processStockIn(createStockVoFromSell(sell));
+		}
+		
+		String header="";
+		String status="";
+		
+		getmodaldata(model, header, type, status);
+		
+		return "selllistuser";
+	}
+	
+	public StockInsertVo createStockVoFromSell(Sell sell)
+	{
+		ProductMain prod =  prodrepository.findById(sell.getProductid()).get();
+		StockInsertVo stockvo = new StockInsertVo();
+		stockvo.setDocid(sell.getId());
+		stockvo.setDocnum(sell.getDocnum());
+		stockvo.setDoctypenum(100l);//sell
+		stockvo.setStockinqty(sell.getQty());
+		stockvo.setInserttype(1l);//stockin
+		stockvo.setSellerprice(sell.getPrice());
+		stockvo.setProductid(sell.getProductid());
+		stockvo.setUserid(sell.getUserid());
+		stockvo.setQty(sell.getQty());
+		stockvo.setSellingprice(prod.getPrice());
+		stockvo.setStockoutqty(0l);
+		return stockvo;
+	}
 
 }
 	

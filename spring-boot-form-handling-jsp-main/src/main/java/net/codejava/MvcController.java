@@ -2,6 +2,8 @@ package net.codejava;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -69,6 +71,18 @@ public class MvcController {
 		return "signup_form";
 	}
 	
+	public static boolean isValidMobileNo(String str)  
+	{  
+		//(0/91): number starts with (0/91)  
+		//[7-9]: starting of the number may contain a digit between 0 to 9  
+		//[0-9]: then contains digits 0 to 9  
+		Pattern ptrn = Pattern.compile("(0/91)?[7-9][0-9]{9}");  
+		//the matcher() method creates a matcher that will match the given input against this pattern  
+		Matcher match = ptrn.matcher(str);  
+		//returns a boolean value  
+		return (match.find() && match.group().equals(str));  
+	}  
+	
 	@PostMapping("/signup")
 	public String signUpForm(@ModelAttribute("user") @Validated User user,BindingResult bindingResult) throws Exception {
 		System.out.println(user);
@@ -85,6 +99,16 @@ public class MvcController {
 		if(BeanUtils.isNullOrEmpty(user.getPassword()))
 		{
 			ObjectError error = new ObjectError("globalError", "Password Is Required");
+			bindingResult.addError(error);
+		}
+		if(BeanUtils.isNullOrEmpty(user.getPhone()))
+		{
+			ObjectError error = new ObjectError("globalError", "Phone No Is Required");
+			bindingResult.addError(error);
+		}
+		if(!isValidMobileNo(user.getPhone()))
+		{
+			ObjectError error = new ObjectError("globalError", "Invalid Phone Number");
 			bindingResult.addError(error);
 		}
 		if(BeanUtils.isNullOrEmpty(user.getUsertype()))
@@ -106,6 +130,8 @@ public class MvcController {
 			huser.setUsername(user.getName());
 			huser.setPassword(user.getPassword());
 			huser.setUsertype(user.getUsertype());
+			huser.setAddress(user.getAddress());
+			huser.setPhone(user.getPhone());
 			userrepository.save(huser);
 		return "register_form";
 	}

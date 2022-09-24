@@ -23,6 +23,20 @@ public class SellVo {
 	private Long qty;
 	private String remarks;
 	private String adminRemarks;
+	private String collectedtime;
+	private String rejectedtime;
+	public String getCollectedtime() {
+		return collectedtime;
+	}
+	public void setCollectedtime(String collectedtime) {
+		this.collectedtime = collectedtime;
+	}
+	public String getRejectedtime() {
+		return rejectedtime;
+	}
+	public void setRejectedtime(String rejectedtime) {
+		this.rejectedtime = rejectedtime;
+	}
 	public Long getId() {
 		return id;
 	}

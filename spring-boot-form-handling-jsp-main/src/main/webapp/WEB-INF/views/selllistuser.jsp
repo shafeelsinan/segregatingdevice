@@ -32,7 +32,7 @@
 </head>
 <body>
 	<div class="w3-padding w3-xlarge w3-teal">
-    SELL LIST
+    ${headersecval}
     <a href="/adminhomepage"><i class="fa fa-home" style="padding-left: 75%"></i></a>
     <a href="/register"><i class="fa fa-sign-out" style="color:red;padding-left: 0%" ></i></a>
   	</div>
@@ -45,7 +45,7 @@
 			<th>QTY</th>
 			<th>STATUS</th>
 			<th>CREATED TIME</th>
-			<c:if test="${type eq 'ALLSAVED'}">
+			<c:if test="${type eq 'ALLSAVED' or type eq 'ALLCOLLECTED'}">
 				<th>ACTION</th>
 			</c:if>
 		</tr>
@@ -61,8 +61,16 @@
 				<c:if test="${type eq 'ALLSAVED'}">
 					<th>
 						<div class="w3-padding w3-xlarge">
-						    <i class="w3-spin fa fa-refresh"></i>
-						    <a href="viewallrejectedsellrequser" ><i class="fa fa-close" style="color:red;"></i></a>
+						    <a href="/updateselltocollected/${emp.id}/${type}" ><i class="fa fa-handshake-o"></i></a>
+						    <a href="/updateselltorejected/${emp.id}/${type}" ><i class="fa fa-close" style="color:red;"></i></a>
+						 </div>
+					</th>
+				</c:if>
+				<c:if test="${type eq 'ALLCOLLECTED'}">
+					<th>
+						<div class="w3-padding w3-xlarge">
+						    <a href="/updateselltorecycled/${emp.id}/${type}" ><i class="w3-spin fa fa-refresh"></i></a>
+						   	<a href="/updateselltorejected/${emp.id}/${type}" ><i class="fa fa-close" style="color:red;"></i></a>
 						 </div>
 					</th>
 				</c:if>

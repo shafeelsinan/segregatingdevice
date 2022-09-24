@@ -179,18 +179,24 @@ label {
 			
                             </div>
                             <div class="form-group">
+                            <form:label class="form-control-label" path="password">Password</form:label>
+							<form:password class="form-control" path="password"/>
+							</div>
+                            <div class="form-group">
                                <form:label class="form-control-label" path="email">E-mail</form:label>
 								<form:input class="form-control" path="email"/>
-			
-			
-                            </div>
+							</div>
+							<div class="form-group">
+                               <form:label class="form-control-label" path="phone">Phone</form:label>
+								<form:input class="form-control" path="phone"/>
+							</div>
                             <div class="form-group">
 								<form:radiobutton path="usertype" value="BUYER"/><form:label class="form-control-label" path="usertype">BUYER</form:label>
 								<form:radiobutton path="usertype" value="SELLER"/><form:label class="form-control-label" path="usertype">SELLER</form:label>
 							</div>
                             <div class="form-group">
-                            <form:label class="form-control-label" path="password">Password</form:label>
-							<form:password class="form-control" path="password"/>
+	                            <form:label class="form-control-label" path="address">Address</form:label>
+								<form:textarea path="address" cols="40" rows="3"/><br/>
 							</div>
                             <div class="col-lg-12 loginbttm">
                                 <div class="col-lg-6 login-btm login-text">

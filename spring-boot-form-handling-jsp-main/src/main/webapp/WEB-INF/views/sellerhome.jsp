@@ -30,7 +30,7 @@
             <ul>
                 <li><div class="linksd" id="homelink">Home</div></li>
                 <li><div class="linksd" id="createreq"><a href="sellproduct/0" style="color:white;">SELL</a></div></li>
-                <li><div class="linksd" id="viewrequest"><a href="viewsellrequser" style="color:white;">VIEW PRODUCT</a></div></li>
+                <li><div class="linksd" id="viewrequest"><a href="viewsellrequser" style="color:white;">SELL LIST</a></div></li>
             </ul>
         </div>
         

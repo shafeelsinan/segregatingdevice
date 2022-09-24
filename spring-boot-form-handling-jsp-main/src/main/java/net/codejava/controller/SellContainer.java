@@ -126,13 +126,40 @@ public class SellContainer {
 			HisUser hisuser = (HisUser) session.getAttribute("USER_DETAILS");
 			List<Sell> productList = sellrepository.findByUserid(hisuser.getId());
 			model.addAttribute("msg", productList);  
+			model.addAttribute("type", "USER");
 			return "selllistuser";
 		}
 	}
 	
+	@GetMapping("/viewallsavedsellrequser")
+	public String showAllSellReq(Model model,HttpSession session) {
+			List<Sell> productList = sellrepository.findByStatus("SAVED");
+			model.addAttribute("msg", productList);  
+			model.addAttribute("type", "ALLSAVED");
+			return "selllistuser";
+		}
+	
+	@GetMapping("/viewallrecycledsellrequser")
+	public String showAllrecycledSellReq(Model model,HttpSession session) {
+			List<Sell> productList = sellrepository.findByStatus("RECYCLED");
+			model.addAttribute("msg", productList);  
+			model.addAttribute("type", "ALLRECYCLED");
+			return "selllistuser";
+		}
+	
+	@GetMapping("/viewallrejectedsellrequser")
+	public String showAllRejectedSellReq(Model model,HttpSession session) {
+			List<Sell> productList = sellrepository.findByStatus("REJECTED");
+			model.addAttribute("msg", productList);  
+			model.addAttribute("type", "ALLREJECTED");
+			return "selllistuser";
+		}
 	
 	
-	
-	
-	
+
 }
+	
+	
+	
+	
+

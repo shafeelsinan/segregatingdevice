@@ -45,6 +45,9 @@
 			<th>QTY</th>
 			<th>STATUS</th>
 			<th>CREATED TIME</th>
+			<c:if test="${type eq 'ALLSAVED'}">
+				<th>ACTION</th>
+			</c:if>
 		</tr>
 		<c:forEach var="emp" items="${msg}">
 			<tr>
@@ -55,6 +58,14 @@
 				<td>${emp.qty}</td>
 				<td>${emp.status}</td>
 				<td>${emp.createdtime}</td>
+				<c:if test="${type eq 'ALLSAVED'}">
+					<th>
+						<div class="w3-padding w3-xlarge">
+						    <i class="w3-spin fa fa-refresh"></i>
+						    <i class="fa fa-close" style="color:red;"></i>
+						 </div>
+					</th>
+				</c:if>
 			</tr>
 		</c:forEach>
 	</table>

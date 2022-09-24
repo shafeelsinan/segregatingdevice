@@ -23,18 +23,19 @@
 
     <div class="wrap">
         
-        
+         
         <div class="sidebar">
-          <img src="/images/menu.png" alt="" id="menuicon">
+         <img src="/images/menu.png" alt="" id="menuicon">
            <h1>Dashboard</h1>
+           
             <ul>
-                <li><div class="linksd" id="homelink">Home</div></li>
-                <li><div class="linksd" id="productlink"><a href="saveproduct/0" style="color:white;">Product</a></div></li>
+            	<li><div class="linksd" id="productlink"><a href="saveproduct/0" style="color:white;">Product</a></div></li>
                 <li><div class="linksd" id="productlist"><a href="viewproduct" style="color:white;">Product List</a></div></li>
                 
                 <li><div class="linksd" id="userlist"><a href="viewalluser" style="color:white;">User List</a></div></li>
-            	<li><div class="linksd" id="selllistid"><a href="viewsellapproval" style="color:white;">Sell List</a></div></li>
-                <li><div class="linksd" id="recyclelist"><a href="recyclelist" style="color:white;">Recycle List</a></div></li>
+            	<li><div class="linksd" id="selllistid"><a href="viewallsavedsellrequser" style="color:white;">Sell List</a></div></li>
+                <li><div class="linksd" id="recyclelist"><a href="viewallrecycledsellrequser" style="color:white;">Recycle List</a></div></li>
+                <li><div class="linksd" id="rejectlist"><a href="viewallrejectedsellrequser" style="color:white;">Reject List</a></div></li>
             </ul>
         </div>
         

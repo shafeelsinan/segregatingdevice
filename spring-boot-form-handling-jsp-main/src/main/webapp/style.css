@@ -38,7 +38,7 @@ body{
     background-color: #2A2A2A;
     position: fixed;
     z-index: 999;
-    padding: 40px;
+    padding: 32px;
     left: -360px;
     box-sizing: border-box;
     transition: .6s;
@@ -57,12 +57,12 @@ body{
 
 .sidebar ul{
     display: block;
-    margin-top: 50px;
+    margin-top: 6px;
 }
 
 .sidebar ul li{
     
-    padding: 10px 0;
+    padding: 6px 0;
     list-style: none;
     border-bottom: 1px solid #707070;
     margin-bottom: 10px;
@@ -71,7 +71,7 @@ body{
 
 .linksd {
 	color: #fff;
-    font-size: 26px;
+    font-size: 22px;
     text-decoration: none;
 }
 

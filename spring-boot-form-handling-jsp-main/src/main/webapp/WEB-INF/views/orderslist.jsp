@@ -36,7 +36,7 @@
 	<div class="w3-padding w3-xlarge w3-teal">
     ${apptitle}
     <c:if test="${type eq 'USER'}">
-    	<a href="/viewallcurrenstocklist"><i class="material-icons" style="padding-left: 75%">&#xe05e;</i></a>
+    	<a href="/viewallcurrenstocklist"><i class="fas fa-warehouse" style="padding-left: 75%">&#xe05e;</i></a>
     </c:if>
     <a href="/adminhomepage"><i class="fa fa-home" style="${type ne 'USER'?'padding-left: 75%':'padding-left: 0%'}"></i></a>
     <a href="/register"><i class="fas fa-times" style="color:red;padding-left: 0%" ></i></a>
@@ -74,7 +74,7 @@
 				<c:if test="${status eq 'SHIPPED'}">
 					<th>
 						<div class="w3-padding w3-xlarge">
-						    <a href="/updatetodelivered/${emp.id}/${type}/${status}" ><i class="fas fa-mail-bulk"></i></a>
+						    <a href="/updatetodelivered/${emp.id}/${type}/${status}" ><i class="fas fa-clipboard-check"></i></a>
 						 </div>
 					</th>
 				</c:if>

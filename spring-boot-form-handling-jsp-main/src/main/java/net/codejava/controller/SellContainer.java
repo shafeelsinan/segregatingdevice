@@ -288,8 +288,8 @@ public class SellContainer {
 		stockvo.setStockinqty(sell.getQty());
 		stockvo.setInserttype(1l);//stockin
 		stockvo.setSellerprice(sell.getPrice());
-		stockvo.setProductid(sell.getProductid());
-		stockvo.setUserid(sell.getUserid());
+		stockvo.getProductid().setId(sell.getProductid());
+		stockvo.getUserid().setId(sell.getUserid());
 		stockvo.setQty(sell.getQty());
 		stockvo.setSellingprice(prod.getPrice());
 		stockvo.setStockoutqty(0l);

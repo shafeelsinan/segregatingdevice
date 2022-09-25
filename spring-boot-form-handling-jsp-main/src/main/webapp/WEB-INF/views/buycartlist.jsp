@@ -56,7 +56,8 @@
 		<div class="card">
 <!-- 		<img src="/w3images/jeans3.jpg" alt="Denim Jeans" style="width:100%"> -->
 		  <h1>${emp.productid.name}</h1>
-		  <p class="price">RS: ${emp.sellingprice}</p>
+		  <p class="price">Qty: ${emp.currenstockqty}</p>
+		  <p class="price">RS : ${emp.sellingprice}</p>
 		  <p>${emp.productid.remarks}</p>
 		  <p><button>BUY</button></p>
 		</div>

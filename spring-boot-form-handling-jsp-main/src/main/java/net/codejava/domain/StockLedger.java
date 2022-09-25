@@ -4,7 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import net.codejava.HisUser;
 
 @Entity
 @Table(name = "STOCKLEDGER")
@@ -14,8 +18,14 @@ public class StockLedger {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long ledgerid;
 	
-	private Long productid;
-	private Long userid;
+	@ManyToOne
+	@JoinColumn(name="productid",nullable = false)
+	private ProductMain productid = new ProductMain();
+	
+	@ManyToOne
+	@JoinColumn(name="userid",nullable = false)
+	private HisUser userid = new HisUser();
+	
 	private Long inserttype;
 	private Long qty;
 	private Long currenstockqty;
@@ -67,16 +77,23 @@ public class StockLedger {
 	public void setDiscount(Double discount) {
 		this.discount = discount;
 	}
-	public Long getProductid() {
+	
+	public Long getLedgerid() {
+		return ledgerid;
+	}
+	public void setLedgerid(Long ledgerid) {
+		this.ledgerid = ledgerid;
+	}
+	public ProductMain getProductid() {
 		return productid;
 	}
-	public void setProductid(Long productid) {
+	public void setProductid(ProductMain productid) {
 		this.productid = productid;
 	}
-	public Long getUserid() {
+	public HisUser getUserid() {
 		return userid;
 	}
-	public void setUserid(Long userid) {
+	public void setUserid(HisUser userid) {
 		this.userid = userid;
 	}
 	public Long getInserttype() {

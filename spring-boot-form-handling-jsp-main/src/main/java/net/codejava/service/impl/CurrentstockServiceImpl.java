@@ -50,9 +50,9 @@ public class CurrentstockServiceImpl implements CurrentstockService {
 		System.out.println("STOCK IN");
 		Currenstock curreststock = new Currenstock();
 		
-		if (!BeanUtils.isNullOrEmpty(currenstockRepository.findByProductidAndSellingprice(stockvo.getProductid(),
+		if (!BeanUtils.isNullOrEmpty(currenstockRepository.findByProductidAndSellingprice(stockvo.getProductid().getId(),
 				stockvo.getSellingprice()))) {
-			curreststock = currenstockRepository.findByProductidAndSellingprice(stockvo.getProductid(),
+			curreststock = currenstockRepository.findByProductidAndSellingprice(stockvo.getProductid().getId(),
 					stockvo.getSellingprice()).get(0);
 			Date date = new Date();  
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  

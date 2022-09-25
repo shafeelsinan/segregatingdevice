@@ -1,9 +1,12 @@
 package net.codejava.vo;
 
+import net.codejava.HisUser;
+import net.codejava.domain.ProductMain;
+
 public class StockInsertVo {
 	private Long id;
-	private Long productid;
-	private Long userid;
+	private ProductMain productid = new ProductMain();
+	private HisUser userid = new HisUser();
 	private Long inserttype;
 	private Long qty=0l;
 	private Long currenstockqty;
@@ -68,16 +71,17 @@ public class StockInsertVo {
 	public void setDiscount(Double discount) {
 		this.discount = discount;
 	}
-	public Long getProductid() {
+	
+	public ProductMain getProductid() {
 		return productid;
 	}
-	public void setProductid(Long productid) {
+	public void setProductid(ProductMain productid) {
 		this.productid = productid;
 	}
-	public Long getUserid() {
+	public HisUser getUserid() {
 		return userid;
 	}
-	public void setUserid(Long userid) {
+	public void setUserid(HisUser userid) {
 		this.userid = userid;
 	}
 	public Long getInserttype() {

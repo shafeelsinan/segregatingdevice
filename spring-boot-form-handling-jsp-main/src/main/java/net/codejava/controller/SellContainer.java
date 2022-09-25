@@ -98,12 +98,17 @@ public class SellContainer {
 			ObjectError error = new ObjectError("globalError", "Product Is Required");
 			bindingResult.addError(error);
 		}
+		ProductMain prod = prodrepository.findById(sellvo.getProductid()).get();
+		if(sellvo.getPrice() > prod.getPrice())
+		{
+			ObjectError error = new ObjectError("globalError", "Price Is GreaterThan Original Amount. Contact Admin");
+			bindingResult.addError(error);
+		}
 		
 		if (bindingResult.hasErrors()) {
 		         return "sellform";
 		     }
 		HisUser hisuser = (HisUser) session.getAttribute("USER_DETAILS");
-		ProductMain prod = prodrepository.findById(sellvo.getProductid()).get();
 		Sell sell = new Sell();
 		sell = mapper.map(sellvo, Sell.class);
 		

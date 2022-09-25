@@ -106,6 +106,8 @@ public class CurrentstockServiceImpl implements CurrentstockService {
 		stkLedger.setDocnum(stockvo.getDocnum());
 		stkLedger.setQty(stockvo.getStockoutqty());
 		stkLedger.setUserid(stockvo.getUserid());
+		stkLedger.setInserttype(2l);
+		stkLedger.setDoctypenum(101l);
 		stkledgerrepository.save(stkLedger);
 		return new Currenstock();
 	}

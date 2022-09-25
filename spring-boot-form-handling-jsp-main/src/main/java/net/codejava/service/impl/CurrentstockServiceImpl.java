@@ -78,6 +78,7 @@ public class CurrentstockServiceImpl implements CurrentstockService {
 		stkLedger.setDocnum(stockvo.getDocnum());
 		stkLedger.setQty(stockvo.getStockinqty());
 		stkLedger.setUserid(stockvo.getUserid());
+		stkLedger.setStockoutqty(0l);
 		Date date = new Date();  
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
 		String strDate= formatter.format(date); 
@@ -89,6 +90,23 @@ public class CurrentstockServiceImpl implements CurrentstockService {
 	@Override
 	public Currenstock processStockOut(StockInsertVo stockvo) {
 		System.out.println("STOCK OUT");
+		Currenstock curreststock = new Currenstock();
+		curreststock = currenstockRepository.findById(stockvo.getCurrentstockid()).get();
+		Date date = new Date();  
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+		String strDate= formatter.format(date); 
+		curreststock.setUpdatedtime(strDate);
+		curreststock.setCurrenstockqty(curreststock.getCurrenstockqty()-stockvo.getStockoutqty());
+		currenstockRepository.save(curreststock);
+		StockLedger stkLedger = mapper.map(curreststock, StockLedger.class);
+		stkLedger.setStockoutqty(stockvo.getStockoutqty());
+		stkLedger.setStockinqty(0l);
+		stkLedger.setCurrentstockid(curreststock.getId());
+		stkLedger.setDocid(stockvo.getDocid());
+		stkLedger.setDocnum(stockvo.getDocnum());
+		stkLedger.setQty(stockvo.getStockoutqty());
+		stkLedger.setUserid(stockvo.getUserid());
+		stkledgerrepository.save(stkLedger);
 		return new Currenstock();
 	}
 

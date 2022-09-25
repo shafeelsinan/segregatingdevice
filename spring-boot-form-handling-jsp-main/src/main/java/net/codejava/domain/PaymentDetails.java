@@ -18,13 +18,13 @@ public class PaymentDetails {
 	private Long id;
 	private Long docid;
 	private String docnum;
-	private Double amountpaid;
-	private Double actualamount;
+	private Double amountpaid=0d;
+	private Double actualamount=0d;
 	private Long paymentmodeid;
 	private String paymentmode;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="buyid",nullable = false)
+	@JoinColumn(name="buy_id",nullable = false)
 	private BuyMain buy = new BuyMain();
 	
 	

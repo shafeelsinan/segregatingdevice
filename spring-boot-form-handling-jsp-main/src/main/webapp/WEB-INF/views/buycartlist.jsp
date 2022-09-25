@@ -59,7 +59,7 @@
 		  <p class="price">Qty: ${emp.currenstockqty}</p>
 		  <p class="price">RS : ${emp.sellingprice}</p>
 		  <p>${emp.productid.remarks}</p>
-		  <p><button>BUY</button></p>
+		  <p><button><a href="/navigatetosell/${emp.id}" >Buy</a></button></p>
 		</div>
 		</c:forEach>
 	 	

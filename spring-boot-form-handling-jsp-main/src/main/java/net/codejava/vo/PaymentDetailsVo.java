@@ -5,8 +5,8 @@ public class PaymentDetailsVo {
 	private Long id;
 	private Long docid;
 	private String docnum;
-	private Double amountpaid;
-	private Double actualamount;
+	private Double amountpaid=0d;
+	private Double actualamount=0d;
 	private Long paymentmodeid;
 	private String paymentmode;
 	

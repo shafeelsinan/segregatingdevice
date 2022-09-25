@@ -1,8 +1,11 @@
 package net.codejava.vo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import net.codejava.domain.Currenstock;
 import net.codejava.domain.PaymentDetails;
 
 public class BuyVo {
@@ -19,9 +22,11 @@ public class BuyVo {
 	private Double sellingprice;
 	private Long qty;
 	private String remarks;
-	private Long currenstockId;
+	
+	private Currenstock currenstockId = new Currenstock();
+	
 	private Double totalAmount = 0d;
-	private List<PaymentDetails> paymentList = new ArrayList<PaymentDetails>();
+	private List<PaymentDetailsVo> paymentList = new ArrayList<PaymentDetailsVo>();
 	public Double getTotalAmount() {
 		return totalAmount;
 	}
@@ -100,17 +105,21 @@ public class BuyVo {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-	public Long getCurrenstockId() {
+	
+	public Currenstock getCurrenstockId() {
 		return currenstockId;
 	}
-	public void setCurrenstockId(Long currenstockId) {
+	public void setCurrenstockId(Currenstock currenstockId) {
 		this.currenstockId = currenstockId;
 	}
-	public List<PaymentDetails> getPaymentList() {
+	public List<PaymentDetailsVo> getPaymentList() {
 		return paymentList;
 	}
-	public void setPaymentList(List<PaymentDetails> paymentList) {
+	public void setPaymentList(List<PaymentDetailsVo> paymentList) {
 		this.paymentList = paymentList;
 	}
+	
+	
+	
 	
 }

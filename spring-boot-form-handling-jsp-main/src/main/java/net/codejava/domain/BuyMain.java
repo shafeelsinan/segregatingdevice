@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -30,11 +32,10 @@ public class BuyMain {
 	private Double sellingprice;
 	private Long qty;
 	private String remarks;
-	private Long currenstockId;
+	@ManyToOne
+	@JoinColumn(name="currenstockId",nullable = false)
+	private Currenstock currenstockId = new Currenstock();
 	private Double totalAmount = 0d;
-	
-	@OneToMany(mappedBy = "buy",cascade = CascadeType.ALL,orphanRemoval = true)
-	private Set<PaymentDetails> paymentList = new HashSet<PaymentDetails>();
 	
 	public Double getTotalAmount() {
 		return totalAmount;
@@ -114,18 +115,14 @@ public class BuyMain {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-	public Long getCurrenstockId() {
+	
+	public Currenstock getCurrenstockId() {
 		return currenstockId;
 	}
-	public void setCurrenstockId(Long currenstockId) {
+	public void setCurrenstockId(Currenstock currenstockId) {
 		this.currenstockId = currenstockId;
 	}
-	public Set<PaymentDetails> getPaymentList() {
-		return paymentList;
-	}
-	public void setPaymentList(Set<PaymentDetails> paymentList) {
-		this.paymentList = paymentList;
-	}
+	
 	
 	
 }

@@ -10,4 +10,5 @@ public interface CurrenstockRepository extends JpaRepository<Currenstock, Long>{
 	
 
 	List<Currenstock> findByProductidAndSellingprice(Long productid,Double price);
+	List<Currenstock> findByCurrenstockqtyGreaterThan(Long qty);
 }

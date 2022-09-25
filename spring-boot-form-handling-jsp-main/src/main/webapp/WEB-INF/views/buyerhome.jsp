@@ -29,9 +29,7 @@
            <h1>Dashboard</h1>
             <ul>
                 <li><div class="linksd" id="homelink">Home</div></li>
-                <li><div class="linksd" id="productlink"><a href="saveproduct/0" style="color:white;">Product</a></div></li>
-                <li><div class="linksd" id="productlist"><a href="viewproduct" style="color:white;">Product List</a></div></li>
-                <li><div class="linksd" id="userlist"><a href="viewalluser" style="color:white;">User List</a></div></li>
+                <li><div class="linksd" id="sellcartlink"><a href="viewallcurrenstocklist" style="color:white;">Buy Cart</a></div></li>
             </ul>
         </div>
         

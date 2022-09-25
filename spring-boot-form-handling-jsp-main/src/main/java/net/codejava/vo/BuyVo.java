@@ -22,7 +22,21 @@ public class BuyVo {
 	private Double sellingprice;
 	private Long qty;
 	private String remarks;
+	private String shippedtime;
+	private String deliveredtime;
 	
+	public String getShippedtime() {
+		return shippedtime;
+	}
+	public void setShippedtime(String shippedtime) {
+		this.shippedtime = shippedtime;
+	}
+	public String getDeliveredtime() {
+		return deliveredtime;
+	}
+	public void setDeliveredtime(String deliveredtime) {
+		this.deliveredtime = deliveredtime;
+	}
 	private Currenstock currenstockId = new Currenstock();
 	
 	private Double totalAmount = 0d;

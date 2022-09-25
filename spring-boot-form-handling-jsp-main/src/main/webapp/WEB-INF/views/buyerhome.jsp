@@ -30,6 +30,7 @@
             <ul>
                 <li><div class="linksd" id="homelink">Home</div></li>
                 <li><div class="linksd" id="sellcartlink"><a href="viewallcurrenstocklist" style="color:white;">Buy Cart</a></div></li>
+           		 <li><div class="linksd" id="sellcartlistlink"><a href="viewalluserorder" style="color:white;">Orders</a></div></li>
             </ul>
         </div>
         

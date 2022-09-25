@@ -32,6 +32,21 @@ public class BuyMain {
 	private Double sellingprice;
 	private Long qty;
 	private String remarks;
+	private String shippedtime;
+	private String deliveredtime;
+	
+	public String getShippedtime() {
+		return shippedtime;
+	}
+	public void setShippedtime(String shippedtime) {
+		this.shippedtime = shippedtime;
+	}
+	public String getDeliveredtime() {
+		return deliveredtime;
+	}
+	public void setDeliveredtime(String deliveredtime) {
+		this.deliveredtime = deliveredtime;
+	}
 	@ManyToOne
 	@JoinColumn(name="currenstockId",nullable = false)
 	private Currenstock currenstockId = new Currenstock();

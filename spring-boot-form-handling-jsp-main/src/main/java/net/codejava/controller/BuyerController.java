@@ -28,6 +28,7 @@ import net.codejava.domain.BuyMain;
 import net.codejava.domain.Currenstock;
 import net.codejava.domain.PaymentDetails;
 import net.codejava.domain.ProductMain;
+import net.codejava.domain.Sell;
 import net.codejava.repository.BuyRepository;
 import net.codejava.repository.CurrenstockRepository;
 import net.codejava.repository.PaymentRepository;
@@ -123,7 +124,7 @@ public class BuyerController {
 		}
 	
 	@PostMapping("/savebuydetails")
-	public String saveBuyDetails(@ModelAttribute("buy") @Validated BuyVo buyvo,BindingResult bindingResult) throws Exception {
+	public String saveBuyDetails(@ModelAttribute("buy") @Validated BuyVo buyvo,BindingResult bindingResult,Model model,HttpSession session) throws Exception {
 		
 		if(BeanUtils.isNullOrZero(buyvo.getQty()))
 		{
@@ -159,7 +160,15 @@ public class BuyerController {
 		payDet.setBuy(buyMain);
 		paymentRepository.save(payDet);
 		service.processStockOut(createStockVoFromBuy(buyMain));
-		return "buycartlist";
+		
+		HisUser hisuser = (HisUser) session.getAttribute("USER_DETAILS");
+		List<BuyMain> productList = buyRepository.findByUserid(buyMain.getUserid());
+		model.addAttribute("msg", productList);  
+		model.addAttribute("type", "USER");
+		model.addAttribute("apptitle", hisuser.getUsername()+"'s ORDER");
+		model.addAttribute("status", "1");
+		
+		return "orderslist";
 	}
 	
 	public StockInsertVo createStockVoFromBuy(BuyMain sell)
@@ -180,6 +189,111 @@ public class BuyerController {
 		stockvo.setCurrentstockid(sell.getCurrenstockId().getId());
 		return stockvo;
 	}
+	
+	@GetMapping("/viewalluserorder")
+	public String showAllUserOrder(Model model,HttpSession session) {
+		if(session.getAttribute("USER_DETAILS") == null)
+		{
+			return "register_form";
+		}
+		else
+		{
+			HisUser hisuser = (HisUser) session.getAttribute("USER_DETAILS");
+			List<BuyMain> productList = buyRepository.findByUserid(hisuser.getId());
+			model.addAttribute("msg", productList);  
+			model.addAttribute("type", "USER");
+			model.addAttribute("apptitle", hisuser.getUsername()+"'s ORDER");
+			model.addAttribute("status", "1");
+			return "orderslist";
+		}
+	}
+	
+	@GetMapping("/viewallordered")
+	public String showAllOrderedorder(Model model,HttpSession session) {
+		List<BuyMain> productList = buyRepository.findByStatus("ORDERED");
+			model.addAttribute("msg", productList);  
+			model.addAttribute("type", "ADMIN");
+			model.addAttribute("apptitle", "ORDERED LIST");
+			model.addAttribute("status", "ORDERED");
+			return "orderslist";
+		}
+	
+	@GetMapping("/viewallshipped")
+	public String showAllShipedorder(Model model,HttpSession session) {
+		List<BuyMain> productList = buyRepository.findByStatus("SHIPPED");
+			model.addAttribute("msg", productList);  
+			model.addAttribute("type", "ADMIN");
+			model.addAttribute("apptitle", "SHIPPED LIST");
+			model.addAttribute("status", "SHIPPED");
+			return "orderslist";
+		}
+	
+	@GetMapping("/viewalldelivered")
+	public String showAllDeliveredorder(Model model,HttpSession session) {
+		List<BuyMain> productList = buyRepository.findByStatus("DELIVERED");
+			model.addAttribute("msg", productList);  
+			model.addAttribute("type", "ADMIN");
+			model.addAttribute("apptitle", "DELIVERED LIST");
+			model.addAttribute("status", "DELIVERED");
+			return "orderslist";
+		}
+	
+	
+	public Model getmodaldata(Model model,String header,String type,String status)
+	{
+		
+		List<BuyMain> productList = buyRepository.findByStatus(status);
+		model.addAttribute("msg", productList);  
+		model.addAttribute("type", type);
+		model.addAttribute("apptitle", header);
+		model.addAttribute("status", status);
+		return model;
+	}
+	
+	@GetMapping("/updatetoshipped/{buyid}/{type}/{statu}")
+	public String updatedtoShipped(@PathVariable Long buyid, @PathVariable String type, 
+			@PathVariable String statu,Model model, HttpSession session) {
+
+		if (!BeanUtils.isNullOrZero(buyid)) {
+			BuyMain buy = buyRepository.findById(buyid).get();
+			buy.setStatus("SHIPPED");
+			Date date = new Date();  
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+			String strDate= formatter.format(date); 
+			buy.setShippedtime(strDate);
+			buyRepository.save(buy);
+
+		}
+		String header=statu+""+" LIST";
+		String status=statu;
+		
+		getmodaldata(model, header, type, status);
+		
+		return "orderslist";
+	}
+	
+	@GetMapping("/updatetodelivered/{buyid}/{type}/{statu}")
+	public String updatedtoDelivered(@PathVariable Long buyid, @PathVariable String type, 
+			@PathVariable String statu,Model model, HttpSession session) {
+
+		if (!BeanUtils.isNullOrZero(buyid)) {
+			BuyMain buy = buyRepository.findById(buyid).get();
+			buy.setStatus("DELIVERED");
+			Date date = new Date();  
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+			String strDate= formatter.format(date); 
+			buy.setDeliveredtime(strDate);
+			buyRepository.save(buy);
+
+		}
+		String header=statu+""+" LIST";
+		String status=statu;
+		
+		getmodaldata(model, header, type, status);
+		
+		return "orderslist";
+	}
+	
 	
 
 	

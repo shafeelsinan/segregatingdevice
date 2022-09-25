@@ -49,6 +49,7 @@
 			<th>USER</th>
 			<th>PRICE</th>
 			<th>QTY</th>
+			<th>TOTAL</th>
 			<th>STATUS</th>
 			<th>CREATED TIME</th>
 			<c:if test="${status eq 'ORDERED' or status eq 'SHIPPED'}">
@@ -62,6 +63,7 @@
 				<td>${emp.username}</td>
 				<td>${emp.sellingprice}</td>
 				<td>${emp.qty}</td>
+				<td>${emp.totalAmount}</td>
 				<td>${emp.status}</td>
 				<td>${emp.createdtime}</td>
 				<c:if test="${status eq 'ORDERED'}">

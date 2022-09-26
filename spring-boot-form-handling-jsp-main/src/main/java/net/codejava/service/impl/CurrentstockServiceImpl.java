@@ -79,6 +79,8 @@ public class CurrentstockServiceImpl implements CurrentstockService {
 		stkLedger.setQty(stockvo.getStockinqty());
 		stkLedger.setUserid(stockvo.getUserid());
 		stkLedger.setStockoutqty(0l);
+		stkLedger.setInserttype(1l);
+		stkLedger.setDoctypenum(100l);
 		Date date = new Date();  
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
 		String strDate= formatter.format(date); 
